@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.23"
+    id("application")
 }
 
 group = "org.computer.whunter.ocpp"
@@ -34,14 +35,6 @@ kotlin {
     jvmToolchain(17)
 }
 
-tasks.register<JavaExec>("run") {
-    group = "execution"
-    description = "Run the main class with JavaExecTask"
-    classpath = sourceSets.main.get().runtimeClasspath
+application {
     mainClass = "org.computer.whunter.ocpp.MainKt"
-    dependsOn += "assemble"
-    doFirst {
-        println("run ${sourceSets.main.get().runtimeClasspath.asPath}")
-    }
 }
-
