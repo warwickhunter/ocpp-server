@@ -49,6 +49,7 @@ import eu.chargetime.ocpp.model.smartcharging.SetChargingProfileConfirmation;
 import eu.chargetime.ocpp.model.smartcharging.SetChargingProfileRequest;
 import eu.chargetime.ocpp.test.FakeCentral.serverType;
 import java.time.ZonedDateTime;
+import org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,8 +64,7 @@ public class FakeCentralSystem {
   FakeCentralSystem(serverType type) {
     dummyHandlers = new DummyHandlers();
 
-    ServerCoreProfile serverCoreProfile =
-        new ServerCoreProfile(dummyHandlers.createServerCoreEventHandler());
+    ServerCoreProfile serverCoreProfile = new ServerCoreProfile(new DataCollectingServerCoreEventHandler());
 
     if (type == serverType.JSON) {
       JSONConfiguration configuration =
