@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CLASSPATH="$HOME/.m2/repository/eu/chargetime/ocpp/common/1.2.0/common-1.2.0.jar:"$HOME/.m2/repository/org/
+    implementation("javax.websocket:javax.websocket-api:1.1")
+    implementation("org.glassfish.tyrus:tyrus-server:1.1")
+
+
+java -cp build/libs/OCPP-server-1.0-SNAPSHOT.jar org.example.MainKt
