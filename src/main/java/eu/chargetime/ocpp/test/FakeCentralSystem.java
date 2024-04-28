@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import eu.chargetime.ocpp.IServerAPI;
-import eu.chargetime.ocpp.JSONConfiguration;
-import eu.chargetime.ocpp.PropertyConstraintException;
+import eu.chargetime.ocpp.*;
 import eu.chargetime.ocpp.feature.profile.*;
 import eu.chargetime.ocpp.feature.profile.securityext.ServerSecurityExtProfile;
 import eu.chargetime.ocpp.model.Request;
@@ -49,22 +47,30 @@ import eu.chargetime.ocpp.model.smartcharging.SetChargingProfileConfirmation;
 import eu.chargetime.ocpp.model.smartcharging.SetChargingProfileRequest;
 import eu.chargetime.ocpp.test.FakeCentral.serverType;
 import java.time.ZonedDateTime;
+import java.util.UUID;
+
 import org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FakeCentralSystem {
+public class FakeCentralSystem implements DataCollectingServerCoreEventHandler.Listener {
+
   private static final Logger logger = LoggerFactory.getLogger(FakeCentralSystem.class);
 
   private IServerAPI server;
 
   private DummyHandlers dummyHandlers;
+  private DataCollectingServerCoreEventHandler coreHandlers;
   public boolean isStarted;
+
+  private boolean isChangeConfigRequestSent = false;
 
   FakeCentralSystem(serverType type) {
     dummyHandlers = new DummyHandlers();
 
-    ServerCoreProfile serverCoreProfile = new ServerCoreProfile(new DataCollectingServerCoreEventHandler());
+    coreHandlers = new DataCollectingServerCoreEventHandler();
+    coreHandlers.addListener(this);
+    ServerCoreProfile serverCoreProfile = new ServerCoreProfile(coreHandlers);
 
     if (type == serverType.JSON) {
       JSONConfiguration configuration =
@@ -115,7 +121,7 @@ public class FakeCentralSystem {
   }
 
   public void started() throws Exception {
-    final String host = "127.0.0.1";
+    final String host = "0.0.0.0"; // 127.0.0.1";
 
     if (!isStarted) {
       int port = 8890;
@@ -503,7 +509,34 @@ public class FakeCentralSystem {
 
   private void send(Request request) throws Exception {
     server
-        .send(dummyHandlers.getCurrentSessionIndex(), request)
+        .send(coreHandlers.getCurrentSessionIndex(), request)
         .whenComplete(dummyHandlers.generateWhenCompleteHandler());
+  }
+
+  @Override
+  public void onBootNotificationRequest(BootNotificationRequest request) {
+    logger.debug("onBootNotificationRequest {}", isChangeConfigRequestSent);
+    if (isChangeConfigRequestSent) {
+      return;
+    }
+    Runnable r = new Runnable() {
+      @Override
+      public void run() {
+        try {
+          logger.debug("preparing to send change configuration request");
+          Thread.sleep(500);
+          logger.debug("sending change configuration request");
+          isChangeConfigRequestSent = true;
+          sendChangeConfigurationRequest(
+                "MeterValuesSampledData",
+                "SoC,Current.Import,Current.Offered,Energy.Active.Import.Register,Power.Active.Import,Power.Offered"
+          );
+        } catch (Exception e) {
+          logger.debug(e.toString());
+        }
+      }
+    };
+    Thread thread = new Thread(r);
+    thread.start();
   }
 }
