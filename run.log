@@ -1,0 +1,32 @@
+> Task :run
+[main] INFO kotlinx.coroutines.BlockingCoroutine - Running OCPP server
+[main] INFO eu.chargetime.ocpp.test.JSONTestServer - Feature repository: FeatureRepository{protocolVersion=OCPP1_6, actionMap.size=39, classMap.size=78}
+[main] INFO eu.chargetime.ocpp.test.FakeCentralSystem - Server started on host: 0.0.0.0, port: 8887
+[WebSocketSelector-18] DEBUG eu.chargetime.ocpp.WebSocketListener - Server socket bound
+[WebSocketWorker-14] DEBUG eu.chargetime.ocpp.WebSocketListener - On connection open (resource descriptor: /wp2)
+[WebSocketWorker-14] DEBUG eu.chargetime.ocpp.WebSocketListener - New web-socket connection opened from address: /192.168.1.103:52355 proxied for: 
+[WebSocketWorker-14] DEBUG eu.chargetime.ocpp.Server - Session created: 9f384b71-33a5-4089-9666-b843430bbea8
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - BootNotificationRequest{chargePointVendor=fronius, chargePointModel=wattpilot_V2, chargeBoxSerialNumber=null, chargePointSerialNumber=91020959, firmwareVersion=40.7, iccid=null, imsi=null, meterSerialNumber=null, meterType=null, isValid=true}
+[WebSocketWorker-14] DEBUG eu.chargetime.ocpp.test.FakeCentralSystem - onBootNotificationRequest false
+[Thread-6] DEBUG eu.chargetime.ocpp.test.FakeCentralSystem - preparing to send change configuration request
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - StatusNotificationRequest{connectorId=0, errorCode=NoError, info=null, status=Available, timestamp="2024-05-03T22:06:11.379Z", vendorId=null, vendorErrorCode=null, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - StatusNotificationRequest{connectorId=1, errorCode=NoError, info=null, status=SuspendedEV, timestamp="2024-05-03T22:06:11.379Z", vendorId=null, vendorErrorCode=null, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - MeterValuesRequest{connectorId=1, transactionId=42, meterValue.length=1, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - MeterValue{timestamp="2024-05-03T22:06:11.379Z", sampledValue.length=10, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Current.Import, phase=L1, location=null, unit=A, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Current.Import, phase=L2, location=null, unit=A, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Current.Import, phase=L3, location=null, unit=A, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=20.00, context=null, format=null, measurand=Current.Offered, phase=null, location=null, unit=A, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=1725093.00, context=null, format=null, measurand=Energy.Active.Import.Register, phase=null, location=null, unit=Wh, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Power.Active.Import, phase=L1, location=null, unit=W, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Power.Active.Import, phase=L2, location=null, unit=W, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Power.Active.Import, phase=L3, location=null, unit=W, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=0.00, context=null, format=null, measurand=Power.Active.Import, phase=null, location=null, unit=W, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - SampledValue{value=13800.00, context=null, format=null, measurand=Power.Offered, phase=null, location=null, unit=W, isValid=true}
+[WebSocketWorker-14] DEBUG org.computer.whunter.ocpp.DataCollectingServerCoreEventHandler - StopTransactionRequest{idTag=null, meterStop=1725093, timestamp="2024-05-03T22:06:11.440Z", transactionId=42, reason=Other, transactionData=null, isValid=true}
+[Thread-6] DEBUG eu.chargetime.ocpp.test.FakeCentralSystem - sending change configuration request
+[Thread-6] DEBUG eu.chargetime.ocpp.Queue - Queue size: 1, store time: 881.3 μs
+[WebSocketWorker-14] DEBUG eu.chargetime.ocpp.Queue - Queue size: 0, store time: 78.54 μs
+[WebSocketSelector-18] DEBUG eu.chargetime.ocpp.WebSocketListener - On connection close (resource descriptor: /wp2, code: 1006, reason: , remote: true)
+<==========---> 83% EXECUTING [2m 7s]
+

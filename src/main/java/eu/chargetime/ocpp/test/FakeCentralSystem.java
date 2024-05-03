@@ -512,31 +512,4 @@ public class FakeCentralSystem implements DataCollectingServerCoreEventHandler.L
         .send(coreHandlers.getCurrentSessionIndex(), request)
         .whenComplete(dummyHandlers.generateWhenCompleteHandler());
   }
-
-  @Override
-  public void onBootNotificationRequest(BootNotificationRequest request) {
-    logger.debug("onBootNotificationRequest {}", isChangeConfigRequestSent);
-    if (isChangeConfigRequestSent) {
-      return;
-    }
-    Runnable r = new Runnable() {
-      @Override
-      public void run() {
-        try {
-          logger.debug("preparing to send change configuration request");
-          Thread.sleep(500);
-          logger.debug("sending change configuration request");
-          isChangeConfigRequestSent = true;
-          sendChangeConfigurationRequest(
-                "MeterValuesSampledData",
-                "SoC,Current.Import,Current.Offered,Energy.Active.Import.Register,Power.Active.Import,Power.Offered"
-          );
-        } catch (Exception e) {
-          logger.debug(e.toString());
-        }
-      }
-    };
-    Thread thread = new Thread(r);
-    thread.start();
-  }
 }
